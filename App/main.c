@@ -31,7 +31,7 @@ void PlayerTrains();
 void Player1v1();
 void PlayerCelebrates();
 void PlayerCeremony();
-
+void PlayerScores();
 void PlayerMove();
 void DribbleEnemy();
 void PlayerShoots();
@@ -130,6 +130,7 @@ int main(){
 		PlayerTrains();
 		Player1v1();
 		PlayerShoots();
+		PlayerScores();
 		PlayerCelebrates();
 		PlayerCeremony();
 	}
@@ -145,67 +146,63 @@ void LoadSpecialChars(){
 }
 
 void PlayerTrains(){
+	LCD_voidGoToPosition(3,4);
+	LCD_voidWriteString((u8*) "Match Warm-up");
 	while(playerY < 20){
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_1);
-		LCD_voidGoToPosition(3,4);
-		LCD_voidWriteString((u8*) "Match Warm-up");
+
 		_delay_ms(FRAME_DELAY_MS-50);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_2);
-		LCD_voidGoToPosition(3,4);
-		LCD_voidWriteString((u8*) "Match Warm-up");
 		_delay_ms(FRAME_DELAY_MS-50);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_3);
-		LCD_voidGoToPosition(3,4);
-		LCD_voidWriteString((u8*) "Match Warm-up");
 		_delay_ms(FRAME_DELAY_MS-50);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
 		playerY++;
 	}
 }
 
 void Player1v1(){
+	LCD_voidSendCommand(LCD_ClearDisplay);
 	playerY = 10;
-	while(playerY < 20){
+	LCD_voidGoToPosition(3,0);
+	LCD_voidWriteString((u8*) "Salah gets the ball!");
+	while(playerY < 19){
 		PlayerMove();
 	}
+	LCD_voidSendCommand(LCD_ClearDisplay);
 	playerY = 6;
-	while(playerY < 14){
-		DribbleEnemy();
-	}
+	DribbleEnemy();
 }
 
 void PlayerMove(){
 	LCD_voidGoToPosition(1,playerY);
 	LCD_voidWriteChar(PLAYER_RUN_1);
 	LCD_voidWriteChar(BALL_GROUND);
-	LCD_voidGoToPosition(3,0);
-	LCD_voidWriteString((u8*) "Salah gets the ball!");
 	_delay_ms(FRAME_DELAY_MS - 100);
-	LCD_voidSendCommand(LCD_ClearDisplay);
+	LCD_voidClearPosition(1,playerY);
 	LCD_voidGoToPosition(1,playerY);
 	LCD_voidWriteChar(PLAYER_RUN_2);
 	LCD_voidWriteChar(BALL_AIR);
-	LCD_voidGoToPosition(3,0);
-	LCD_voidWriteString((u8*) "Salah gets the ball!");
 	_delay_ms(FRAME_DELAY_MS - 100);
-	LCD_voidSendCommand(LCD_ClearDisplay);
+	LCD_voidClearPosition(1,playerY);
 	LCD_voidGoToPosition(1,playerY);
 	LCD_voidWriteChar(PLAYER_RUN_3);
 	LCD_voidWriteChar(BALL_GROUND);
-	LCD_voidGoToPosition(3,0);
-	LCD_voidWriteString((u8*) "Salah gets the ball!");
 	_delay_ms(FRAME_DELAY_MS - 100);
-	LCD_voidSendCommand(LCD_ClearDisplay);
+	LCD_voidClearPosition(1,playerY);
 	playerY++;
 }
 
 void DribbleEnemy(){
-	if(playerY < 9 || playerY == 12) {
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,2);
+	LCD_voidWriteString((u8*) "Salah vs Keeper!");
+	while(playerY < 9){
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_1);
 		LCD_voidWriteChar(BALL_GROUND);
@@ -213,17 +210,8 @@ void DribbleEnemy(){
 		LCD_voidWriteChar(GOALKEEPER);
 		LCD_voidGoToPosition(1,15);
 		LCD_voidWriteChar(GOAL_POST);
-		if(playerY < 9)
-		{
-			LCD_voidGoToPosition(3,2);
-			LCD_voidWriteString((u8*) "Salah vs Keeper!");
-		}
-		else{
-			LCD_voidGoToPosition(3,5);
-			LCD_voidWriteString((u8*) "Open goal");
-		}
 		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_2);
 		LCD_voidWriteChar(BALL_AIR);
@@ -231,17 +219,8 @@ void DribbleEnemy(){
 		LCD_voidWriteChar(GOALKEEPER);
 		LCD_voidGoToPosition(1,15);
 		LCD_voidWriteChar(GOAL_POST);
-		if(playerY < 9)
-		{
-			LCD_voidGoToPosition(3,2);
-			LCD_voidWriteString((u8*) "Salah vs Keeper!");
-		}
-		else{
-			LCD_voidGoToPosition(3,5);
-			LCD_voidWriteString((u8*) "Open goal");
-		}
 		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
 		LCD_voidGoToPosition(1,playerY);
 		LCD_voidWriteChar(PLAYER_RUN_3);
 		LCD_voidWriteChar(BALL_GROUND);
@@ -249,32 +228,28 @@ void DribbleEnemy(){
 		LCD_voidWriteChar(GOALKEEPER);
 		LCD_voidGoToPosition(1,15);
 		LCD_voidWriteChar(GOAL_POST);
-		if(playerY < 9)
-		{
-			LCD_voidGoToPosition(3,2);
-			LCD_voidWriteString((u8*) "Salah vs Keeper");
-		}
-		else{
-			LCD_voidGoToPosition(3,5);
-			LCD_voidWriteString((u8*) "Open goal");
-		}
 		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(1,playerY);
+		playerY++;
 	}
-	else if(playerY == 9){
-		LCD_voidGoToPosition(1,playerY);
-		LCD_voidWriteChar(PLAYER_RUN_3);
-		LCD_voidWriteChar(BALL_AIR);
-		LCD_voidGoToPosition(1,10);
-		LCD_voidWriteChar(KEEPER_SLIDE);
-		LCD_voidGoToPosition(1,15);
-		LCD_voidWriteChar(GOAL_POST);
-		LCD_voidGoToPosition(3,5);
-		LCD_voidWriteString((u8*) "Keeper slides!");
-		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
-	}
-	else if(playerY < 12){
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,5);
+	LCD_voidWriteString((u8*) "Keeper slides!");
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_3);
+	LCD_voidGoToPosition(0, playerY+1);
+	LCD_voidWriteChar(BALL_AIR);
+	LCD_voidGoToPosition(1,10);
+	LCD_voidWriteChar(KEEPER_SLIDE);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+	playerY++;
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,5);
+	LCD_voidWriteString((u8*) "Salah jumps!");
+	while(playerY < 12){
 		LCD_voidGoToPosition(0,playerY);
 		LCD_voidWriteChar(PLAYER_JUMP);
 		LCD_voidWriteChar(BALL_AIR);
@@ -282,51 +257,86 @@ void DribbleEnemy(){
 		LCD_voidWriteChar(KEEPER_SLIDE);
 		LCD_voidGoToPosition(1,15);
 		LCD_voidWriteChar(GOAL_POST);
-		LCD_voidGoToPosition(3,5);
-		LCD_voidWriteString((u8*) "Salah jumps!");
 		_delay_ms(FRAME_DELAY_MS+200);
-		LCD_voidSendCommand(LCD_ClearDisplay);
+		LCD_voidClearPosition(0,playerY);
+		LCD_voidClearPosition(0,playerY+1);
+
+		playerY++;
 	}
-	else{
-		LCD_voidGoToPosition(1,playerY);
-		LCD_voidWriteChar(PLAYER_RUN_1);
-		LCD_voidWriteChar(BALL_GROUND);
-		LCD_voidGoToPosition(1,11);
-		LCD_voidWriteChar(PLAYER_RUN_1);
-		LCD_voidGoToPosition(1,15);
-		LCD_voidWriteChar(GOAL_POST);
-		LCD_voidGoToPosition(3,5);
-		LCD_voidWriteString((u8*) "Salah shoots!");
-		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
-		LCD_voidGoToPosition(1,playerY);
-		LCD_voidWriteChar(PLAYER_RUN_2);
-		LCD_voidWriteChar(BALL_AIR);
-		LCD_voidGoToPosition(1,12);
-		LCD_voidWriteChar(PLAYER_RUN_1);
-		LCD_voidGoToPosition(1,15);
-		LCD_voidWriteChar(GOAL_POST);
-		LCD_voidGoToPosition(3,5);
-		LCD_voidWriteString((u8*) "Salah shoots!");
-		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
-		LCD_voidGoToPosition(1,playerY);
-		LCD_voidWriteChar(PLAYER_RUN_3);
-		LCD_voidGoToPosition(1,playerY+2);
-		LCD_voidWriteChar(BALL_AIR);
-		LCD_voidGoToPosition(1,12);
-		LCD_voidWriteChar(PLAYER_RUN_1);
-		LCD_voidGoToPosition(1,15);
-		LCD_voidWriteChar(GOAL_POST);
-		LCD_voidGoToPosition(3,5);
-		LCD_voidWriteString((u8*) "Salah shoots!");
-		_delay_ms(FRAME_DELAY_MS);
-		LCD_voidSendCommand(LCD_ClearDisplay);
-	}
-	playerY++;
 }
 
 void PlayerShoots(){
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,5);
+	LCD_voidWriteString((u8*) "Open goal");
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_1);
+	LCD_voidWriteChar(BALL_GROUND);
+	LCD_voidGoToPosition(1,10);
+	LCD_voidWriteChar(GOALKEEPER);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_2);
+	LCD_voidWriteChar(BALL_AIR);
+	LCD_voidGoToPosition(1,10);
+	LCD_voidWriteChar(GOALKEEPER);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_3);
+	LCD_voidWriteChar(BALL_GROUND);
+	LCD_voidGoToPosition(1,10);
+	LCD_voidWriteChar(GOALKEEPER);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+	playerY++;
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,5);
+	LCD_voidWriteString((u8*) "Salah shoots!");
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_1);
+	LCD_voidWriteChar(BALL_GROUND);
+	LCD_voidClearPosition(1,10);
+	LCD_voidGoToPosition(1,11);
+	LCD_voidWriteChar(PLAYER_RUN_1);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_2);
+	LCD_voidWriteChar(BALL_AIR);
+	LCD_voidClearPosition(1,11);
+	LCD_voidGoToPosition(1,12);
+	LCD_voidWriteChar(PLAYER_RUN_1);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY+1);
+	LCD_voidClearPosition(1,playerY);
+	LCD_voidGoToPosition(1,playerY);
+	LCD_voidWriteChar(PLAYER_RUN_3);
+	LCD_voidGoToPosition(1,playerY+2);
+	LCD_voidWriteChar(BALL_AIR);
+	LCD_voidGoToPosition(1,12);
+	LCD_voidWriteChar(PLAYER_RUN_1);
+	LCD_voidGoToPosition(1,15);
+	LCD_voidWriteChar(GOAL_POST);
+	_delay_ms(FRAME_DELAY_MS);
+	LCD_voidClearPosition(1,playerY);
+}
+
+void PlayerScores(){
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,5);
+	LCD_voidWriteString((u8*) "Salah scores!");
 	LCD_voidGoToPosition(1,13);
 	LCD_voidWriteChar(PLAYER_RUN_3);
 	LCD_voidGoToPosition(1,12);
@@ -334,41 +344,39 @@ void PlayerShoots(){
 	LCD_voidGoToPosition(1,15);
 	LCD_voidWriteChar(GOAL_SCORED);
 	DIO_voidSetPinValue(DIO_PortC, DIO_PIN6, High);
-	LCD_voidGoToPosition(3,5);
-	LCD_voidWriteString((u8*) "Salah scores!");
 	_delay_ms(FRAME_DELAY_MS + 300);
 	DIO_voidSetPinValue(DIO_PortC, DIO_PIN6, Low);
 }
 
 void PlayerCelebrates(){
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,2);
+	LCD_voidWriteString((u8*) "GOAAAAAAAAL!");
 	LCD_voidGoToPosition(1,13);
 	LCD_voidWriteChar(PLAYER_RUN_1);
 	LCD_voidGoToPosition(1,12);
 	LCD_voidWriteChar(KEEPER_SLIDE);
 	LCD_voidGoToPosition(1,15);
 	LCD_voidWriteChar(GOAL_SCORED);
-	LCD_voidGoToPosition(3,2);
-	LCD_voidWriteString((u8*) "Crowd goes wild!");
 	_delay_ms(FRAME_DELAY_MS + 500);
-	LCD_voidSendCommand(LCD_ClearDisplay);
+	LCD_voidClearPosition(1,13);
+	LCD_voidClearLine(3);
+	LCD_voidGoToPosition(3,4);
+	LCD_voidWriteString((u8*) "SIUUUUUUUUUU!");
 	LCD_voidGoToPosition(2,13);
 	LCD_voidWriteChar(PLAYER_JUMP);
 	LCD_voidGoToPosition(1,12);
 	LCD_voidWriteChar(KEEPER_SLIDE);
 	LCD_voidGoToPosition(1,15);
 	LCD_voidWriteChar(GOAL_SCORED);
-	LCD_voidGoToPosition(3,4);
-	LCD_voidWriteString((u8*) "SIUUUUUUUUUU!");
 	_delay_ms(FRAME_DELAY_MS + 500);
-	LCD_voidSendCommand(LCD_ClearDisplay);
+	LCD_voidClearPosition(2,13);
 	LCD_voidGoToPosition(2,13);
 	LCD_voidWriteChar(PLAYER_CELEBRATE);
 	LCD_voidGoToPosition(1,12);
 	LCD_voidWriteChar(KEEPER_SLIDE);
 	LCD_voidGoToPosition(1,15);
 	LCD_voidWriteChar(GOAL_SCORED);
-	LCD_voidGoToPosition(3,4);
-	LCD_voidWriteString((u8*) "SIUUUUUUUUUU!");
 	_delay_ms(FRAME_DELAY_MS + 500);
 	LCD_voidSendCommand(LCD_ClearDisplay);
 }
@@ -383,4 +391,3 @@ void PlayerCeremony(){
 	_delay_ms(FRAME_DELAY_MS + 1000);
 	LCD_voidSendCommand(LCD_ClearDisplay);
 }
-
